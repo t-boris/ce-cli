@@ -8,10 +8,15 @@ class Config:
             self.exchanges = yaml.safe_load(file)
             for exchange in self.exchanges:
                 exchange_class = getattr(ccxt, exchange)
-                self.exchanges[exchange]['client'] = exchange_class({
-                    'apiKey': self.exchanges[exchange]['apikey'],
-                    'secret': self.exchanges[exchange]['secretkey'],
-                })
+                if 'secretkey' in self.exchanges[exchange]:
+                    self.exchanges[exchange]['client'] = exchange_class({
+                        'apiKey': self.exchanges[exchange]['apikey'],
+                        'secret': self.exchanges[exchange]['secretkey'],
+                    })
+                else:
+                    self.exchanges[exchange]['client'] = exchange_class({
+                        'apiKey': self.exchanges[exchange]['apikey'],
+                    })
 
     def get_exchanges(self):
         return self.exchanges
