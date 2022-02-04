@@ -1,7 +1,7 @@
 import fire
 
 from balance import Balance
-from exchange_hub import ExchangeHub
+from exchanges import ExchangeHub
 
 
 class Command:
